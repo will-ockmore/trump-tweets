@@ -1,13 +1,14 @@
-const path = require('path');
+/* eslint-disable no-var, vars-on-top */
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const SOURCE_DIR = path.resolve(__dirname, 'src/');
-const BUILD_DIR = path.resolve(__dirname, 'public/');
+var paths = require('./paths.js');
+
 
 module.exports = {
-  entry: path.resolve(SOURCE_DIR, 'index.js'),
+  entry: paths.appIndexJs,
 
   output: {
-    path: BUILD_DIR,
+    path: paths.buildDir,
     filename: 'bundle.js',
   },
 
@@ -18,7 +19,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: 'eslint',
-        include: SOURCE_DIR,
+        include: paths.sourceDir,
       },
     ],
 
@@ -26,13 +27,19 @@ module.exports = {
       // Babel compilation
       {
         test: /\.(js|jsx)$/,
-        include: SOURCE_DIR,
+        include: paths.sourceDir,
         loader: 'babel',
       },
     ],
   },
 
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: paths.appIndexHtmlTemplate,
+    }),
+  ],
+
   devServer: {
-    contentBase: BUILD_DIR,
+    contentBase: paths.buildDir,
   },
 };
