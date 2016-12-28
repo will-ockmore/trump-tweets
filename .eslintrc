@@ -1,6 +1,10 @@
 {
   "extends": "airbnb",
   "rules": {
+    "no-unused-vars": 1,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-named-as-default": 0,
+    "no-unused-expressions": 0,
     "react/prefer-stateless-function": 0,
     "react/jsx-filename-extension": 0,
   }

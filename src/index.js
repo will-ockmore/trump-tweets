@@ -1,11 +1,8 @@
+/* global document */
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class App extends React.Component {
-  render() {
-    return <p>Hello there </p>;
-  }
-}
+import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('app')); // eslint-disable-line no-undef
 
+ReactDOM.render(<App />, document.getElementById('app'));
