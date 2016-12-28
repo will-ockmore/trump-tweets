@@ -1,14 +1,14 @@
+/* eslint-env browser */
 import React from 'react';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import io from 'socket.io-client';
 
 import rootReducer from './reducers/reducers';
 
-const mapStateToProps = state => ({ state });
+import TweetsContainer from './components/containers/TweetsContainer';
 
-const Paragraph = connect(mapStateToProps)(props => <p>Hi lol{console.log(props)}</p>);
-
-
+const socket = io('http://localhost:3001'); // server addr
 const store = createStore(rootReducer);
 
 export class App extends React.Component {
@@ -17,7 +17,7 @@ export class App extends React.Component {
     return (
       <Provider store={store}>
         <div>
-          <Paragraph />
+          <TweetsContainer socket={socket} />
         </div>
       </Provider>
     );

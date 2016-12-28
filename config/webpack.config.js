@@ -36,6 +36,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: paths.appIndexHtmlTemplate,
+      insert: 'body',
     }),
   ],
 

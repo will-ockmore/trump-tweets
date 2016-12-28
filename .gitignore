@@ -15,3 +15,5 @@ public
 npm-debug.log
 
 public/bundle.js
+
+public/index.html
