@@ -17,6 +17,7 @@ var serverPort = process.env.PORT || 3001;
 
 module.exports = {
   appIndexJs: resolveApp('src/index.js'),
+  appServerJs: resolveApp('src/server.js'),
   appIndexHtmlTemplate: resolveApp('src/index.html'),
   publicIndexHtml: resolveApp('public/index.html'),
   sourceDir: resolveApp('src'),

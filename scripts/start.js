@@ -5,6 +5,7 @@ var detect = require('detect-port');
 var webpack = require('webpack');
 var openBrowser = require('react-dev-utils/openBrowser');
 var prompt = require('react-dev-utils/prompt');
+var childProcess = require('child_process');
 var chalk = require('chalk');
 var WebpackDevServer = require('webpack-dev-server');
 
@@ -36,23 +37,50 @@ function runDevServer(port) {
   });
 }
 
+function runBackend(port) {
+  return new Promise((resolve, reject) => {
+    var invoked = false;
 
-function run(port) {
-  runDevServer(port);
+    var backendServer = childProcess.fork(paths.appServerJs, port);
+
+    // listen for errors as they may prevent the exit event from firing
+    backendServer.on('error', (err) => {
+      if (invoked) resolve();
+      invoked = true;
+      reject(err);
+    });
+
+    // execute the callback once the backendServer has finished running
+    backendServer.on('exit', (code) => {
+      if (invoked) resolve();
+      invoked = true;
+      if (code !== 0) {
+        reject(new Error('exit code ' + code));
+      } else {
+        resolve(code);
+      }
+    });
+    resolve(backendServer);
+  });
 }
 
-detect(paths.devServerPort).then(port => {
-  if (port === paths.devServerPort) {
-    run(port);
-    return;
-  }
-  var question =
-      chalk.yellow('Something is already running on port ' + paths.devServerPort + '.') +
-      '\n\nRun on a different port?';
-
-  prompt(question, true).then(shouldChangePort => {
-    if (shouldChangePort) {
-      run(port);
+detect(paths.nodeServerPort)
+  .then(port => runBackend(port))
+  .then(() => detect(paths.devServerPort))
+  .then(port => {
+    if (port === paths.devServerPort) {
+      runDevServer(port);
+      return;
     }
-  });
-});
+    var question =
+        chalk.yellow('Something is already running on port ' + paths.devServerPort + '.') +
+        '\n\nRun on a different port?';
+
+    prompt(question, true)
+      .then(shouldChangePort => {
+        if (shouldChangePort) {
+          runDevServer(port);
+        }
+      });
+  })
+  .catch(err => console.log(chalk.red(err.stack)));
