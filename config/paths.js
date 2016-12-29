@@ -13,7 +13,7 @@ function getLocalhostAddr(port) {
 }
 
 var webpackDevServerPort = 3000;
-var serverPort = process.env.PORT || 3001;
+var serverPort = process.env.PORT || 9090;
 
 module.exports = {
   appIndexJs: resolveApp('src/index.js'),
