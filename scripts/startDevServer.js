@@ -75,7 +75,11 @@ function runDevServer(port) {
     // use server address - served in iframe mode
     // https://webpack.github.io/docs/webpack-dev-server.html#combining-with-an-existing-server
     contentBase: paths.nodeServerAddr,
+    // supress all log output from webpack -
+    // it is dealt with above in setupCompiler
     quiet: true,
+    // enable hot module replacement for sass/css
+    hot: true,
   });
 
   // Launch WebpackDevServer.
