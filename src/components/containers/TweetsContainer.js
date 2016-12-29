@@ -19,9 +19,7 @@ export class TweetsContainer extends React.PureComponent {
   render() {
     const { tweets } = this.props;
 
-    return (
-      <TweetList tweets={tweets} />
-    );
+    return <TweetList tweets={tweets} />;
   }
 }
 

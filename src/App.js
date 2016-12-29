@@ -8,7 +8,10 @@ import rootReducer from './reducers/reducers';
 
 import TweetsContainer from './components/containers/TweetsContainer';
 
-const socket = io('http://localhost:3001'); // server addr
+require('./scss/app.scss');
+
+
+const socket = io('http://localhost:9090'); // server addr
 const store = createStore(rootReducer);
 
 export class App extends React.Component {

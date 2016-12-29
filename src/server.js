@@ -21,9 +21,7 @@ var port = argv[0];
 io.on('connection', () => logger('new user connected!'))
 
 var tweetStream = tw(config);
-tweetStream.track('javascript');
 tweetStream.track('bacon');
-tweetStream.track('surfing');
 tweetStream.on('tweet', t => io.emit('tweet', t));
 
 // bodyParser middleware for request data

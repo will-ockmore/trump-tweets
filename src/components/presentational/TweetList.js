@@ -1,9 +1,10 @@
 import React from 'react';
 import { List, Map } from 'immutable';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 export const Tweet = ({ tweet }) =>
-  <div>
-    <em>{tweet.getIn(['user', 'name'])}:&nbsp;</em>
+  <div className="card">
+    <h4>{tweet.getIn(['user', 'name'])}:&nbsp;</h4>
     <span>{tweet.get('text')}</span>
   </div>;
 
@@ -12,14 +13,19 @@ Tweet.propTypes = {
 };
 
 export const TweetList = ({ tweets }) =>
-  <div>
+  <CSSTransitionGroup
+    className="card-container"
+    transitionName="card-anim"
+    transitionEnterTimeout={500}
+    transitionLeave={false}
+  >
     {tweets.map(tweet =>
       <Tweet
-        key={tweet.get('id')}
+        key={tweet.get('id_str') + tweet.get('timestamp_ms')}
         tweet={tweet}
-      />)
-    }
-  </div>;
+      />
+    )}
+  </CSSTransitionGroup>;
 
 TweetList.propTypes = {
   tweets: React.PropTypes.instanceOf(List).isRequired,
