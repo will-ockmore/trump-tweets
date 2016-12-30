@@ -17,11 +17,11 @@ export const TweetList = ({ tweets }) =>
     className="card-container"
     transitionName="card-anim"
     transitionEnterTimeout={500}
-    transitionLeave={false}
+    transitionLeaveTimeout={300}
   >
     {tweets.map(tweet =>
       <Tweet
-        key={tweet.get('id_str') + tweet.get('timestamp_ms')}
+        key={tweet.get('id_str')}
         tweet={tweet}
       />
     )}

@@ -6,7 +6,9 @@ import * as actions from '../actions/actions';
 export function tweets(state = fromJS([]), action) {
   switch (action.type) {
     case actions.ADD_TWEET:
-      return state.push(action.payload.tweet);
+      return state
+        .unshift(action.payload.tweet)
+        .slice(0, 6);
     default:
       return state;
   }

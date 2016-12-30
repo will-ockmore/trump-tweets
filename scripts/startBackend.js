@@ -2,23 +2,25 @@
 var childProcess = require('child_process');
 
 var paths = require('../config/paths.js');
-var checkForPortAndRun = require('./checkForPort.js');
+var checkForPort = require('./checkForPort.js');
 
 
 function runServer(port) {
   return new Promise((resolve, reject) => {
-    var invoked = false; // make sure the process doesn't throw twice
+    // make sure the process doesn't throw twice
+    // if it causes exit of process
+    var invoked = false;
 
     var backendServer = childProcess.fork(paths.appServerJs, [port]);
 
     backendServer.on('error', (err) => {
-      if (invoked) resolve();
+      if (invoked) return;
       invoked = true;
       reject(err);
     });
 
     backendServer.on('exit', (code) => {
-      if (invoked) resolve();
+      if (invoked) return;
       invoked = true;
       if (code !== 0) {
         reject(new Error('exit code ' + code));
@@ -26,12 +28,12 @@ function runServer(port) {
         resolve(code);
       }
     });
-    resolve(backendServer);
   });
 }
 
 function run() {
-  return checkForPortAndRun(paths.nodeServerPort, runServer);
+  return checkForPort(paths.nodeServerPort)
+    .then(runServer);
 }
 
 module.exports = run;

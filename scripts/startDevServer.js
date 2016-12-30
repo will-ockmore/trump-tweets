@@ -7,7 +7,7 @@ var WebpackDevServer = require('webpack-dev-server');
 
 var paths = require('../config/paths.js');
 var config = require('../config/webpack.config.js');
-var checkForPortAndRun = require('./checkForPort.js');
+var checkForPort = require('./checkForPort.js');
 
 var LOG_PREFIX = 'webpack dev server';
 var logger = require('./logger.js')(LOG_PREFIX);
@@ -88,14 +88,15 @@ function runDevServer(port) {
       return logger(err);
     }
 
-    logger(chalk.cyan('Starting the development server...'));
+    logger(chalk.cyan('Starting the development server on port ') + chalk.yellow.bold(port));
     logger();
     openBrowser('http://localhost:' + port + '/webpack-dev-server/');
   });
 }
 
 function run() {
-  return checkForPortAndRun(paths.devServerPort, runDevServer);
+  return checkForPort(paths.devServerPort)
+    .then(runDevServer);
 }
 
 module.exports = run;

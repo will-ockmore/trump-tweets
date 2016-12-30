@@ -1,4 +1,4 @@
-/* eslint-disable no-var, vars-on-top, prefer-template, object-shorthand */
+/* eslint-disable no-var, vars-on-top, prefer-template */
 var path = require('path');
 var fs = require('fs');
 
@@ -19,11 +19,12 @@ module.exports = {
   appIndexJs: resolveApp('src/index.js'),
   appServerJs: resolveApp('src/server.js'),
   appScss: resolveApp('src/scss'),
-  appIndexHtmlTemplate: resolveApp('src/index.html'),
-  publicIndexHtml: resolveApp('public/index.html'),
+  appIndexHtmlTemplate: resolveApp('public/index.html'),
+  buildIndexHtml: resolveApp('build/index.html'),
   sourceDir: resolveApp('src'),
   nodeModules: resolveApp('node_modules'),
-  buildDir: resolveApp('public'),
+  buildDir: resolveApp('build'),
+  appPublic: resolveApp('public'),
 
   // ports and addresses
   devServerPort: webpackDevServerPort,

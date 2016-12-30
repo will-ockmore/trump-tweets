@@ -6,6 +6,12 @@ var chalk = require('chalk');
 var runBackend = require('./startBackend.js');
 var runDevServer = require('./startDevServer.js');
 
+function catchErr(err) {
+  return console.log(chalk.red(err.stack));
+}
+
 runBackend()
-  .then(runDevServer)
-  .catch(err => console.log(chalk.red(err.stack)));
+  .catch(catchErr);
+
+runDevServer()
+  .catch(catchErr);
