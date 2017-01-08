@@ -3,13 +3,13 @@ var childProcess = require('child_process');
 
 var paths = require('../config/paths.js');
 
-function runServer(port) {
+function runServer() {
   return new Promise((resolve, reject) => {
     // make sure the process doesn't throw twice
     // if it causes exit of process
     var invoked = false;
 
-    var backendServer = childProcess.fork(paths.appServerJs, [port]);
+    var backendServer = childProcess.fork(paths.appServerJs);
 
     backendServer.on('error', (err) => {
       if (invoked) return;

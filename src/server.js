@@ -16,13 +16,6 @@ var LOG_PREFIX = 'express backend';
 var logger = require('../scripts/logger.js').createLogger(LOG_PREFIX);
 
 
-var argv =
-  process.argv
-    .slice(2)
-    .filter(arg => arg !== 'undefined');
-
-var port = argv[0] || paths.nodeServerPort;
-
 var tweetCount = 0;
 
 // bodyParser middleware for request data
@@ -49,7 +42,7 @@ app.get('*', (req, res) => {
   res.sendFile(paths.buildIndexHtml);
 });
 
-http.listen(port, () => logger(chalk.cyan('Listening on port ') + chalk.yellow.bold(port)));
+http.listen(paths.nodeServerPort, () => logger(chalk.cyan('Listening on port ') + chalk.yellow.bold(paths.nodeServerPort)));
 
 process.on('SIGINT', () => {
   console.log('=================');
