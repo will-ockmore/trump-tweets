@@ -6,7 +6,7 @@ $brand-light: #FBF6E0;
 $brand-dark: #487D77;
 $brand-accent: #F8DA3D;
 
-$card-bg: darken($brand-primary, 10%);
+$darker-bg: darken($brand-primary, 10%);
 
 $grey: #2B2B2B;
 
@@ -36,7 +36,7 @@ $base-padding: 10px;
 $base-font-size: 16px;
 $small-font-size: 14px;
 $x-small-font-size: 12px;
-$header-font: 'Cinzel', serif;
+$header-font: 'Oswald', sans-serif;
 $base-font: 'Roboto Slab', serif;
 
 $font-light: 300;

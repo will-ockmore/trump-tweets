@@ -17,7 +17,7 @@ export const TweetList = ({ tweets }) =>
     className="card-container"
     transitionName="card-anim"
     transitionEnterTimeout={500}
-    transitionLeaveTimeout={300}
+    transitionLeaveTimeout={700}
   >
     {tweets.map(tweet =>
       <Tweet

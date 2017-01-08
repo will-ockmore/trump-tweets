@@ -25,7 +25,6 @@ h5,
 strong {
   line-height: 1em;
   margin: $base-padding / 2 0;
-  // color: $grey;
 }
 
 /* @end elements */
@@ -101,8 +100,9 @@ strong {
 /* @group card */
 
 .card {
-  background: $card-bg;
-  font-size: $small-font-size;
+  background-color: $brand-light;
+  color: $grey;
+  font-size: $base-font-size;
   border-radius: 2px;
   margin: 1rem;
   position: relative;
@@ -133,10 +133,23 @@ strong {
 
 .card-anim-leave.card-anim-leave-active {
   opacity: 0.01;
-  transition: opacity 500ms ease-out;
+  transition: opacity 700ms ease-out;
 }
 
 /* @end card */
+
+/* @group header */
+
+.header {
+  text-align: center;
+  font-family: $header-font;
+  font-size: $base-font-size * 4;
+  font-weight: $font-regular;
+  color: $grey;
+  // color: $brand-light;
+}
+
+/* @end header */
 
 
 /* @group loading spinner */
