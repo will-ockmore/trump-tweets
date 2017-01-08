@@ -2,8 +2,6 @@
 var childProcess = require('child_process');
 
 var paths = require('../config/paths.js');
-var checkForPort = require('./checkForPort.js');
-
 
 function runServer(port) {
   return new Promise((resolve, reject) => {
@@ -31,9 +29,4 @@ function runServer(port) {
   });
 }
 
-function run() {
-  return checkForPort(paths.nodeServerPort)
-    .then(runServer);
-}
-
-module.exports = { run, runServer };
+module.exports = runServer;

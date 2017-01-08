@@ -2,6 +2,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
+var env = require('./env');
 var paths = require('./paths.js');
 
 // config for webpack dev server.
@@ -48,6 +49,11 @@ module.exports = {
   },
 
   plugins: [
+    // Makes some environment variables available to the JS code, for example:
+    // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
+    // It is absolutely essential that NODE_ENV was set to production here.
+    // Otherwise React will be compiled in the very slow development mode.
+    new webpack.DefinePlugin(env),
 
     // necessary for hot reloading of css
     new webpack.HotModuleReplacementPlugin(),

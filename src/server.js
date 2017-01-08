@@ -16,7 +16,11 @@ var LOG_PREFIX = 'express backend';
 var logger = require('../scripts/logger.js').createLogger(LOG_PREFIX);
 
 
-var argv = process.argv.slice(2);
+var argv =
+  process.argv
+    .slice(2)
+    .filter(arg => arg !== 'undefined');
+
 var port = argv[0] || paths.nodeServerPort;
 
 var tweetCount = 0;

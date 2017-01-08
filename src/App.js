@@ -11,8 +11,9 @@ import Header from './components/presentational/Header';
 
 require('./scss/app.scss');
 
+const socketAddr = `${window.location.hostname}:${process.env.PORT}`;
+const socket = io(socketAddr);
 
-const socket = io('http://localhost:9090'); // server addr
 const store = createStore(rootReducer);
 
 export class App extends React.Component {

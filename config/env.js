@@ -1,3 +1,5 @@
+/* eslint-disable no-var, vars-on-top, prefer-template, object-shorthand, func-names */
+
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
 
@@ -13,9 +15,12 @@ var processEnv =
     }, {
       // Useful for determining whether we’re running in production mode.
       // Most importantly, it switches React into the correct mode.
-      'NODE_ENV': JSON.stringify(
+      NODE_ENV: JSON.stringify(
         process.env.NODE_ENV || 'development'
+      ),
+      PORT: JSON.stringify(
+        process.env.PORT
       ),
     });
 
-module.exports = {'process.env': processEnv};
+module.exports = { 'process.env': processEnv };
