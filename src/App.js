@@ -12,8 +12,8 @@ import Header from './components/presentational/Header';
 require('./scss/app.scss');
 
 const socketAddr = process.env.NODE_ENV === 'production' ?
-  `${window.location.hostname}:${process.env.PORT}` :
-  window.location.origin;
+  window.location.origin :
+  `${window.location.hostname}:${process.env.PORT}`;
 
 const socket = io(socketAddr);
 
