@@ -11,7 +11,10 @@ import Header from './components/presentational/Header';
 
 require('./scss/app.scss');
 
-const socketAddr = `${window.location.hostname}:${process.env.PORT}`;
+const socketAddr = process.env.NODE_ENV === 'production' ?
+  `${window.location.hostname}:${process.env.PORT}` :
+  window.location.origin;
+
 const socket = io(socketAddr);
 
 const store = createStore(rootReducer);
