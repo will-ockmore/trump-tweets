@@ -10,7 +10,7 @@ var config = require('../config/webpack.config.js');
 var checkForPort = require('./checkForPort.js');
 
 var LOG_PREFIX = 'webpack dev server';
-var logger = require('./logger.js')(LOG_PREFIX);
+var logger = require('./logger.js').createLogger(LOG_PREFIX);
 
 // Borrowed much of this from create-react-app.
 // Left most of the comments in and heavily modified
@@ -89,7 +89,6 @@ function runDevServer(port) {
     }
 
     logger(chalk.cyan('Starting the development server on port ') + chalk.yellow.bold(port));
-    logger();
     openBrowser('http://localhost:' + port + '/webpack-dev-server/');
   });
 }

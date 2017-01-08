@@ -2,7 +2,7 @@
 var chalk = require('chalk');
 
 
-module.exports = function createLogger(prefix) {
+function createLogger(prefix) {
   var LOG_PREFIX = chalk.blue.bold(`[${prefix}]`) + ':';
   return function logger(message) {
     if (message) {
@@ -10,4 +10,13 @@ module.exports = function createLogger(prefix) {
     }
     return console.log();
   };
+}
+
+function catchErr(err) {
+  return console.log(chalk.red(err.stack));
+}
+
+module.exports = {
+  createLogger,
+  catchErr,
 };

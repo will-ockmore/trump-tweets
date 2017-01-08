@@ -4,6 +4,8 @@ var webpack = require('webpack');
 
 var paths = require('./paths.js');
 
+// config for webpack dev server.
+// see also: scripts/startDevServer.js
 
 module.exports = {
   entry: [
