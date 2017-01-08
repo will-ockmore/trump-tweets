@@ -36,4 +36,4 @@ function run() {
     .then(runServer);
 }
 
-module.exports = run;
+module.exports = { run, runServer };

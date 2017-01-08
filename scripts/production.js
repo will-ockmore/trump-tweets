@@ -2,7 +2,9 @@
 process.env.NODE_ENV = 'production';
 
 var catchErr = require('./logger').catchErr;
-var runBackend = require('./startBackend.js');
+var runBackend = require('./startBackend.js').runServer;
+var paths = require('../config/paths.js');
 
-runBackend()
+
+runBackend(paths.nodeServerPort)
   .catch(catchErr);

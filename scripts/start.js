@@ -2,7 +2,7 @@
 process.env.NODE_ENV = 'development';
 
 var catchErr = require('./logger').catchErr;
-var runBackend = require('./startBackend.js');
+var runBackend = require('./startBackend.js').run;
 var runDevServer = require('./startDevServer.js');
 
 runBackend()

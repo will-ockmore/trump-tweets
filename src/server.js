@@ -17,7 +17,7 @@ var logger = require('../scripts/logger.js').createLogger(LOG_PREFIX);
 
 
 var argv = process.argv.slice(2);
-var port = argv[0];
+var port = argv[0] || paths.nodeServerPort;
 
 var tweetCount = 0;
 
