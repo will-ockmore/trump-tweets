@@ -1,41 +1,59 @@
-/* eslint-disable no-var, vars-on-top, prefer-template, no-plusplus */
+/* eslint-disable no-var, vars-on-top, prefer-template, no-plusplus, no-underscore-dangle */
 var tw = require('node-tweet-stream');
 var chalk = require('chalk');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var express = require('express');
 
+var config = require('../config/twitter.json');
+var paths = require('../config/paths.js');
+
+var Tweet = require('./models/tweet.js');
+
+var LOG_PREFIX = 'express backend';
+var logger = require('../scripts/logger.js').createLogger(LOG_PREFIX);
+var errorLogger = require('../scripts/logger.js').catchErr;
+
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var config = require('../config/twitter.json');
-var paths = require('../config/paths.js');
-
-var LOG_PREFIX = 'express backend';
-var logger = require('../scripts/logger.js').createLogger(LOG_PREFIX);
-
-
-var tweetCount = 0;
 
 // bodyParser middleware for request data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// mongodb mlab connection uri
-mongoose.connect('mongodb://will-ockmore:jU5SpWpbiz7Kzi6LP2Iz@ds135818.mlab.com:35818/trump-tweets');
 
 // direct requests for static files
 app.use(express.static(paths.buildDir));
 
 io.on('connection', () => logger('New user connected!'));
 
+// mongodb mlab connection uri
+mongoose.connect(process.env.MONGODB_URI);
+var db = mongoose.connection;
+
+// set up twitter stream
 var tweetStream = tw(config);
 tweetStream.track('trump');
 
-tweetStream.on('tweet', t => {
-  tweetCount++;
-  io.emit('tweet', t);
+var tweets = [];
+var _tweets;
+
+tweetStream.on('tweet', tweet => {
+  tweets.push(tweet);
+  io.emit('tweet', tweet);
+
+  if (tweets.length > 200) {
+    _tweets = tweets;
+    tweets = [];
+
+    Tweet.create(_tweets, (err, twts) => {
+      if (err) {
+        return errorLogger(err.stack);
+      }
+      logger('Successfully saved: ' + twts.length);
+    });
+  }
 });
 
 app.get('*', (req, res) => {
@@ -45,10 +63,9 @@ app.get('*', (req, res) => {
 http.listen(paths.nodeServerPort, () => logger(chalk.cyan('Listening on port ') + chalk.yellow.bold(paths.nodeServerPort)));
 
 process.on('SIGINT', () => {
-  console.log('=================');
-  console.log('');
-  console.log('Number of tweets recorded:', tweetCount);
-  console.log('');
-  console.log('=================');
+  db.close(() => {
+    logger('mongoose connection closed.');
+    process.exit(0);
+  });
 });
 
