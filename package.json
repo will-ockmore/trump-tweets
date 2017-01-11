@@ -7,7 +7,8 @@
     "node": "6.7.0"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "postinstall": "printf \"%s\n\" \"$NODE_ENV\"",
+    "start": "env",
     "build": "node scripts/build.js",
     "test": "node scripts/tests.js"
   },
