@@ -29,7 +29,7 @@ app.use(express.static(paths.buildDir));
 io.on('connection', () => logger('New user connected!'));
 
 // mongodb mlab connection uri
-mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect(process.env.MONGODB_URI);
 var db = mongoose.connection;
 
 // set up twitter stream
@@ -43,17 +43,17 @@ tweetStream.on('tweet', tweet => {
   tweets.push(tweet);
   io.emit('tweet', tweet);
 
-  if (tweets.length > 200) {
-    _tweets = tweets;
-    tweets = [];
+  // if (tweets.length > 200) {
+  //   _tweets = tweets;
+  //   tweets = [];
 
-    Tweet.create(_tweets, (err, twts) => {
-      if (err) {
-        return errorLogger(err.stack);
-      }
-      logger('Successfully saved: ' + twts.length);
-    });
-  }
+  //   Tweet.create(_tweets, (err, twts) => {
+  //     if (err) {
+  //       return errorLogger(err.stack);
+  //     }
+  //     logger('Successfully saved: ' + twts.length);
+  //   });
+  // }
 });
 
 app.get('*', (req, res) => {
