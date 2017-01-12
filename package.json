@@ -48,7 +48,6 @@
     "fs-extra": "1.0.0",
     "gzip-size": "3.0.0",
     "html-webpack-plugin": "2.24.1",
-    // "node-sass": "4.1.1",
     "object-assign": "4.1.0",
     "promise": "7.1.1",
     "sass-loader": "4.1.1",
