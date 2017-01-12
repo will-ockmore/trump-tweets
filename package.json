@@ -61,8 +61,8 @@
     "dotenv": "4.0.0"
   },
   "devDependencies": {
-    "detect-port": "1.0.7",
     "enzyme": "2.7.0",
+    "detect-port": "1.0.7",
     "jest": "18.0.0",
     "react-addons-test-utils": "15.4.1",
     "react-test-renderer": "15.4.1"
