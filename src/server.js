@@ -37,23 +37,23 @@ var tweetStream = tw(config);
 tweetStream.track('trump');
 
 var tweets = [];
-var _tweets;
+// var _tweets;
 
 tweetStream.on('tweet', tweet => {
   tweets.push(tweet);
   io.emit('tweet', tweet);
 
-  // if (tweets.length > 200) {
-  //   _tweets = tweets;
-  //   tweets = [];
+  if (tweets.length > 200) {
+    // _tweets = tweets;
+    tweets = [];
 
-  //   Tweet.create(_tweets, (err, twts) => {
-  //     if (err) {
-  //       return errorLogger(err.stack);
-  //     }
-  //     logger('Successfully saved: ' + twts.length);
-  //   });
-  // }
+    // Tweet.create(_tweets, (err, twts) => {
+    //   if (err) {
+    //     return errorLogger(err.stack);
+    //   }
+    //   logger('Successfully saved: ' + twts.length);
+    // });
+  }
 });
 
 app.get('*', (req, res) => {
