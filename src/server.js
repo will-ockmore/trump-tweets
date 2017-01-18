@@ -37,14 +37,13 @@ var tweetStream = tw(config);
 tweetStream.track('trump');
 
 var tweets = [];
-var _tweets;
 
 tweetStream.on('tweet', tweet => {
   tweets.push(tweet);
   io.emit('tweet', tweet);
 
   if (tweets.length > 200) {
-    _tweets = tweets;
+    var _tweets = tweets;
     tweets = [];
 
     Tweet.create(_tweets, (err) => {
