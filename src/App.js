@@ -1,27 +1,18 @@
 /* eslint-env browser */
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import io from 'socket.io-client';
-
-import rootReducer from './reducers/reducers';
 
 import TweetsContainer from './components/containers/TweetsContainer';
 import Header from './components/presentational/Header';
 
 require('./scss/app.scss');
 
-const socketAddr = process.env.NODE_ENV === 'production' ?
-  window.location.origin :
-  `${window.location.hostname}:${process.env.PORT}`;
-
-const socket = io(socketAddr);
-
-const store = createStore(rootReducer);
 
 export class App extends React.Component {
 
   render() {
+    const { store, socket } = this.props;
+
     return (
       <Provider store={store}>
         <div>
@@ -32,5 +23,10 @@ export class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  store: React.PropTypes.object.isRequired,
+  socket: React.PropTypes.object.isRequired
+};
 
 export default App;
