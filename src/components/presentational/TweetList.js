@@ -3,10 +3,17 @@ import { List, Map } from 'immutable';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 export const Tweet = ({ tweet }) =>
-  <div className="card">
-    <h4>{tweet.getIn(['user', 'name'])}:&nbsp;</h4>
-    <span>{tweet.get('text')}</span>
-  </div>;
+  <a
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ 'target-new': 'tab' }}
+    href={`https://twitter.com/${tweet.getIn(['user', 'screen_name'])}/status/${tweet.get('id_str')}`}
+  >
+    <div className="card">
+      <h4>{tweet.getIn(['user', 'name'])}:&nbsp;</h4>
+      <span>{tweet.get('text')}</span>
+    </div>
+  </a>;
 
 Tweet.propTypes = {
   tweet: React.PropTypes.instanceOf(Map).isRequired,
