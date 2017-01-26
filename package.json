@@ -9,6 +9,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "start": "node scripts/start.js",
+    "start-prod": "node scripts/production.js",
     "build": "node scripts/build.js",
     "test": "node scripts/tests.js"
   },

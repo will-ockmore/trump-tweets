@@ -8,7 +8,7 @@ export function tweets(state = fromJS([]), action) {
     case actions.ADD_TWEET:
       return state
         .unshift(action.payload.tweet)
-        .slice(0, 6);
+        .slice(0, 7);
     default:
       return state;
   }

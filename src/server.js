@@ -36,22 +36,23 @@ var db = mongoose.connection;
 var tweetStream = tw(config);
 tweetStream.track('trump');
 
-var tweets = [];
+var count = 0;
 
 tweetStream.on('tweet', tweet => {
-  tweets.push(tweet);
-  io.emit('tweet', tweet);
+  count %= 200;
 
-  if (tweets.length > 200) {
-    var _tweets = tweets;
-    tweets = [];
+  // only save 0.5% of tweets
+  if (count === 0) {
+    io.emit('tweet', tweet);
 
-    Tweet.create(_tweets, (err) => {
+    Tweet.create(tweet, (err) => {
       if (err) {
         return errorLogger(err.stack);
       }
     });
   }
+
+  count++;
 });
 
 app.get('*', (req, res) => {
